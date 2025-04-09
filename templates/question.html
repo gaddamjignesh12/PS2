@@ -2,24 +2,85 @@
 <html>
 <head>
     <title>Question {{ qno }}</title>
+    <style>
+        body {
+            background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #fff;
+            text-align: center;
+            padding-top: 60px;
+        }
+        .quiz-box {
+            background: rgba(0, 0, 0, 0.7);
+            display: inline-block;
+            padding: 40px;
+            border-radius: 15px;
+            max-width: 600px;
+            width: 90%;
+        }
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+        .btn {
+            padding: 10px 25px;
+            background: #28a745;
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 16px;
+            margin-top: 15px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #218838;
+        }
+        .feedback {
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        #timer {
+            font-size: 20px;
+            color: #ffcc00;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
-    <h2>Question {{ qno }} of {{ total }}</h2>
-    <p>{{ question.prompt }}</p>
+    <div class="quiz-box">
+        <h2>Question {{ qno }} of {{ total }}</h2>
+        <div id="timer">Time Left: <span id="time">20</span> seconds</div>
+        <p>{{ question.prompt }}</p>
 
-    <form method="POST">
-        {% for option in question.options %}
-            <label>
-                <input type="radio" name="answer" value="{{ option[0] }}" required> {{ option }}
-            </label><br>
-        {% endfor %}
-        <br>
-        <button type="submit">Submit</button>
-    </form>
+        <form method="POST" id="quizForm">
+            {% for option in question.options %}
+                <label>
+                    <input type="radio" name="answer" value="{{ option[0] }}" required> {{ option }}
+                </label><br>
+            {% endfor %}
+            <button class="btn" type="submit">Submit</button>
+        </form>
 
-    {% if feedback %}
-        <p><strong>{{ feedback }}</strong></p>
-        <p>Current Score: {{ score }}</p>
-    {% endif %}
+        {% if feedback %}
+            <div class="feedback">{{ feedback }}</div>
+            <p>Current Score: {{ score }}</p>
+        {% endif %}
+    </div>
+
+    <script>
+        let timeLeft = 20;
+        const timerDisplay = document.getElementById("time");
+        const form = document.getElementById("quizForm");
+
+        const countdown = setInterval(() => {
+            timeLeft--;
+            timerDisplay.textContent = timeLeft;
+            if (timeLeft <= 0) {
+                clearInterval(countdown);
+                form.submit();
+            }
+        }, 1000);
+    </script>
 </body>
 </html>

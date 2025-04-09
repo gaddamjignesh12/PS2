@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz</title>
+</head>
+<body>
+    <h1>Flask Quiz Web App</h1>
+    <form method="POST" action="/submit">
+        {% for q in questions %}
+            {% set index = loop.index0 %}
+            <p><strong>Q{{ loop.index }}. {{ q.prompt }}</strong></p>
+            {% for option in q.options %}
+                <label>
+                    <input type="radio" name="q{{ index }}" value="{{ option[0] }}" required>
+                    {{ option }}
+                </label><br>
+            {% endfor %}
+            <br>
+        {% endfor %}
+        <button type="submit">Submit Quiz</button>
+    </form>
+</body>
+</html>

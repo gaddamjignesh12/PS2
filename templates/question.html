@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Question {{ qno }}</title>
+</head>
+<body>
+    <h2>Question {{ qno }} of {{ total }}</h2>
+    <p>{{ question.prompt }}</p>
+
+    <form method="POST">
+        {% for option in question.options %}
+            <label>
+                <input type="radio" name="answer" value="{{ option[0] }}" required> {{ option }}
+            </label><br>
+        {% endfor %}
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+
+    {% if feedback %}
+        <p><strong>{{ feedback }}</strong></p>
+        <p>Current Score: {{ score }}</p>
+    {% endif %}
+</body>
+</html>

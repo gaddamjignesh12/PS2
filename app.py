@@ -10,8 +10,8 @@ questions = [
         "answer": "C"
     },
     {
-        "prompt": "What is the capital of France?",
-        "options": ["A. Paris", "B. London", "C. Berlin", "D. Madrid"],
+        "prompt": "3**2=???",
+        "options": ["A. 4", "B. 9", "C. 6", "D. 8"],
         "answer": "A"
     },
     {

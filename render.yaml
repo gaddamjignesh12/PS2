@@ -1,9 +1,6 @@
 services:
   - type: web
-    name: flask-quiz-app
-    env: python
-    buildCommand: ""
-    startCommand: python app.py
-    envVars:
-      - key: FLASK_ENV
-        value: production
+    name: ps2
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
